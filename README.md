@@ -85,6 +85,8 @@ Open [built GoShop](http://localhost:3001). Do not run another API process again
 
 ## Production deployment
 
+For Vercel hosting, use [the Vercel deployment guide](docs/VERCEL.md). The repository includes a Vite build, a serverless Express API entry point and routing configuration.
+
 Use a Node.js host with HTTPS and Neon PostgreSQL. This project is a runnable final-project implementation; external payment/courier services are not configured.
 
 1. Install with `npm ci`, build with `npm run build`, then use `npm start` as the service command.
