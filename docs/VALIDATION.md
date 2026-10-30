@@ -59,3 +59,18 @@ Production website: https://goshop-two.vercel.app. Vercel project `goshop` is co
 - The deployment upload manifest excluded private environment files, local data, dependencies and work artifacts; its source contents had no match for the private Neon URL or password.
 
 These are HTTP and API checks. No rendered browser interaction, load capacity, distributed rate limiting, payment processing, courier integration or backup restoration is established by the deployment.
+
+## Browser authentication and interface captures on 30 October 2026
+
+The owner reported difficulty signing out. A fresh Brave browser session on the public site successfully invalidated its customer session; the original failure was not reproduced. The interface now provides a visible Sign out button, a disabled Signing out state, duplicate-click protection, a success notification and a return to sign-in. Customer and workspace logout share one implementation. Logout no longer broadcasts a refresh of protected data after invalidating the cookie.
+
+The revised production build was exercised in headless Brave against an isolated, seeded PGlite database, separate from Neon:
+
+- Customer logout from the cart displayed the busy state, issued one request after rapid clicks, removed the cookie and invalidated the previous token. Refreshing remained signed out, and reopening the cart required sign-in.
+- A simulated failed logout preserved the session and showed retry guidance. Retrying succeeded.
+- Storefront logout worked with the keyboard at a 390 px mobile viewport. Workspace account-menu logout also succeeded.
+- Desktop sign-in, registration and ten staff screens, plus mobile authentication and storefront views, had no document-level horizontal overflow at the checked sizes. No page-level JavaScript errors were observed.
+- Real screen captures were produced for the standalone SRS using synthetic classroom data. Authentication fields were empty. Captures of the local integration/settings screens correctly identify the separate local database; they are not evidence of a Neon connection.
+- TypeScript checking, the Vite production build and all 19 existing isolated regression tests passed.
+
+This is a focused browser pass for authentication, logout and captured layouts. It does not establish screen-reader acceptance, every mobile staff layout, checkout/CSV form interaction in the browser, load capacity or backup restoration. The design detector reported advisory differences between existing CSS literals and the recorded design palette/type scale; this was not a clean whole-site design audit.

@@ -2499,6 +2499,28 @@ a:focus-visible {
   width: 23px;
   color: #af95bd;
 }
+.shop-sign-out {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--field-border, #e5e2eb);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--purple-dark, #604997);
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.shop-sign-out:hover:not(:disabled) {
+  background: var(--lilac, #eee9f8);
+}
+.shop-sign-out:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
 .workspace-link {
   display: flex;
   align-items: center;

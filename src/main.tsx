@@ -42,7 +42,7 @@ import {
   ToastProvider,
   Brand,
   Loading,
-  useToast,
+  useSignOut,
   Field,
   type User,
   type Config,
@@ -120,13 +120,13 @@ const manage = [
   { label: "Settings", path: "/settings", icon: Settings },
 ];
 function WorkspaceLayout() {
-  const { user, setUser } = useAuth(),
+  const { user } = useAuth(),
     [mobile, setMobile] = useState(false),
     [account, setAccount] = useState(false),
     [search, setSearch] = useState("");
   const location = useLocation(),
     navigate = useNavigate(),
-    toast = useToast();
+    { signOut, signingOut } = useSignOut();
   const current =
     [...nav, ...manage].find((x) => x.path === location.pathname)?.label ||
     "Workspace";
@@ -169,15 +169,6 @@ function WorkspaceLayout() {
       previous?.focus();
     };
   }, [mobile]);
-  async function logout() {
-    try {
-      await mutate("/auth/logout", "POST");
-      setUser(null);
-      navigate("/login");
-    } catch (e) {
-      toast((e as Error).message, true);
-    }
-  }
   return (
     <div className="workspace">
       <a href="#main" className="skip-link">
@@ -303,9 +294,14 @@ function WorkspaceLayout() {
                 <strong>{user?.name}</strong>
                 <small>{user?.email}</small>
                 <span className="role-label">{user?.role}</span>
-                <button onClick={logout}>
+                <button
+                  type="button"
+                  onClick={signOut}
+                  disabled={signingOut}
+                  aria-busy={signingOut}
+                >
                   <LogOut size={16} />
-                  Sign out
+                  {signingOut ? "Signing out…" : "Sign out"}
                 </button>
               </div>
             )}

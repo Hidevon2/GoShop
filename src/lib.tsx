@@ -7,6 +7,7 @@ import {
   type ReactNode,
 } from "react";
 import { AlertCircle, Check, Loader2, Package, X } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export type User = {
   id: string;
@@ -187,6 +188,32 @@ const ToastContext = createContext<(message: string, error?: boolean) => void>(
   () => {},
 );
 export const useToast = () => useContext(ToastContext);
+export function useSignOut() {
+  const { setUser } = useAuth();
+  const navigate = useNavigate();
+  const toast = useToast();
+  const [signingOut, setSigningOut] = useState(false);
+  const pending = useRef(false);
+  async function signOut() {
+    if (pending.current) return;
+    pending.current = true;
+    setSigningOut(true);
+    try {
+      // End the session before clearing the UI. Logout must not refresh
+      // authenticated data with a cookie the server has just invalidated.
+      await api("/auth/logout", { method: "POST" });
+      navigate("/login", { replace: true });
+      setUser(null);
+      toast("You’re signed out.");
+    } catch {
+      toast("Couldn’t sign out. Check your connection and try again.", true);
+    } finally {
+      pending.current = false;
+      setSigningOut(false);
+    }
+  }
+  return { signOut, signingOut };
+}
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toast, setToast] = useState<{
     message: string;

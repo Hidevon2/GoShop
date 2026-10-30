@@ -28,6 +28,7 @@ import {
   useConfig,
   useData,
   useToast,
+  useSignOut,
   Brand,
   ProductImage,
   Loading,
@@ -43,20 +44,10 @@ import { OrderPanel, OrderTable } from "./workspace";
 
 function ShopShell({ children }: { children: ReactNode }) {
   const config = useConfig(),
-    { user, setUser } = useAuth(),
+    { user } = useAuth(),
     { data: cart } = useData<CartItem[]>(user ? "/cart" : null),
-    navigate = useNavigate(),
-    toast = useToast();
+    { signOut, signingOut } = useSignOut();
   const count = cart?.reduce((sum, item) => sum + item.quantity, 0) || 0;
-  async function logout() {
-    try {
-      await mutate("/auth/logout", "POST");
-      setUser(null);
-      navigate("/shop");
-    } catch (e) {
-      toast((e as Error).message, true);
-    }
-  }
   return (
     <div className="shop">
       <a className="skip-link" href="#shop-main">
@@ -96,11 +87,14 @@ function ShopShell({ children }: { children: ReactNode }) {
                 </Link>
               )}
               <button
-                className="icon-button"
-                onClick={logout}
-                aria-label="Sign out"
+                type="button"
+                className="shop-sign-out"
+                onClick={signOut}
+                disabled={signingOut}
+                aria-busy={signingOut}
               >
                 <LogOut size={18} />
+                <span>{signingOut ? "Signing out…" : "Sign out"}</span>
               </button>
             </>
           ) : (
