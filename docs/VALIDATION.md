@@ -73,4 +73,6 @@ The revised production build was exercised in headless Brave against an isolated
 - Real screen captures were produced for the standalone SRS using synthetic classroom data. Authentication fields were empty. Captures of the local integration/settings screens correctly identify the separate local database; they are not evidence of a Neon connection.
 - TypeScript checking, the Vite production build and all 19 existing isolated regression tests passed.
 
+The capture pass also found a local static-directory collision: `/products` redirected to the product-image directory `/products/`, leaving the workspace breadcrumb unmatched. The local static server now disables directory redirects so React handles the exact application route. Product image files remain available.
+
 This is a focused browser pass for authentication, logout and captured layouts. It does not establish screen-reader acceptance, every mobile staff layout, checkout/CSV form interaction in the browser, load capacity or backup restoration. The design detector reported advisory differences between existing CSS literals and the recorded design palette/type scale; this was not a clean whole-site design audit.
