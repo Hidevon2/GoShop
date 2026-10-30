@@ -2,6 +2,8 @@
 
 GoShop uses a Vite frontend and one Express API function on Vercel. Both use the same hostname. The function connects to the existing Neon PostgreSQL database through its pooled connection string. The local Node server remains available through `npm run dev` or `npm start`.
 
+Production URL: **https://goshop-two.vercel.app**. Deployed and checked on 30 October 2026 under the owner's Vercel Hobby account. The Vercel project is connected to `Hidevon2/GoShop` for Git deployments.
+
 ## Project settings
 
 - Import `Hidevon2/GoShop` from GitHub, or link the directory with Vercel CLI.

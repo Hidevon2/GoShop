@@ -44,4 +44,18 @@ The owner created the GoShop Neon project in Singapore and saved its pooled Post
 - The frontend entry returned HTTP 200, and its `/api/health` proxy confirmed the same live Neon adapter.
 - Restricted the development backend watcher to `server/` after unrestricted dependency watching repeatedly restarted the process on this Windows environment. The updated `npm run dev` started the API and Vite successfully.
 
-The local `.data/goshop` store remains separate and was not transferred or erased. The cloud records are demonstration data. GoShop is running locally with Neon persistence; no public website deployment, browser interaction acceptance, load test or backup restoration is claimed.
+The local `.data/goshop` store remains separate and was not transferred or erased. The cloud records are demonstration data. This initial connection check ran locally; the later public deployment is recorded below.
+
+## Vercel production verified on 30 October 2026
+
+Production website: https://goshop-two.vercel.app. Vercel project `goshop` is connected to `Hidevon2/GoShop`. Deployment configuration and the serverless API entry are versioned in the repository; credentials remain in Vercel's secret environment settings.
+
+- All 19 isolated regression tests and the TypeScript/Vite production build passed after the database adapter was prepared for Vercel. Production dependencies reported zero audit vulnerabilities.
+- A local check of the serverless entry against Neon passed production sign-in, secure cookie flags, staff data reads, foreign-origin rejection and disabled demo seeding.
+- Vercel built the frontend and API successfully. Public, unauthenticated requests to `/`, `/login`, `/shop`, the product image, CSS assets, `/api/products` and `/api/health` returned the expected content types and HTTP 200.
+- The hosted health route confirmed `neon-postgres`. Public catalog reads returned 12 products and concealed product costs.
+- Hosted administrator sign-in, authenticated dashboard/profile reads and logout passed. Cookies were HttpOnly, Secure and SameSite=Lax; the logged-out session was rejected.
+- Anonymous staff access returned 401, a foreign-origin write returned 403 and an unknown API path returned 404.
+- The deployment upload manifest excluded private environment files, local data, dependencies and work artifacts; its source contents had no match for the private Neon URL or password.
+
+These are HTTP and API checks. No rendered browser interaction, load capacity, distributed rate limiting, payment processing, courier integration or backup restoration is established by the deployment.

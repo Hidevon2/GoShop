@@ -2,6 +2,8 @@
 
 A complete retail and e-commerce final project: React storefront and staff workspace, Node.js REST API, and a shared PostgreSQL database. Built around the retail integration case in `integration.pptx`.
 
+Live classroom demo: **[goshop-two.vercel.app](https://goshop-two.vercel.app)**. The hosted frontend and API use Neon PostgreSQL. Records are synthetic demonstration data.
+
 ## Start locally
 
 Requires Node.js 22.12+ and npm. From this directory:
