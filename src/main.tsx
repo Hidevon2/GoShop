@@ -61,6 +61,7 @@ import {
 } from "./workspace";
 import { ShopPage, CartPage, MyOrdersPage } from "./shop";
 import "./styles.css";
+import "./dashboard-theme.css";
 
 function AuthProvider() {
   const [user, setUser] = useState<User | null>(null),
@@ -106,7 +107,7 @@ function Protected({ staff = false }: { staff?: boolean }) {
   return <Outlet />;
 }
 const nav = [
-  { label: "Overview", path: "/dashboard", icon: LayoutDashboard },
+  { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
   { label: "Products", path: "/products", icon: Package },
   { label: "Inventory", path: "/inventory", icon: Boxes },
   { label: "Orders", path: "/orders", icon: ShoppingBag },
@@ -191,16 +192,7 @@ function WorkspaceLayout() {
         <Link to="/dashboard" className="brand-link">
           <Brand />
         </Link>
-        <div className="workspace-switch">
-          <span className="store-avatar">
-            <Store size={19} />
-          </span>
-          <div>
-            <strong>My workspace</strong>
-            <span>Retail & e-commerce</span>
-          </div>
-          <ChevronDown size={15} />
-        </div>
+        <p className="sidebar-tagline">POINT OF SALE & MANAGEMENT</p>
         <nav aria-label="Main navigation">
           <p className="nav-label">WORKSPACE</p>
           {nav.map((item) => (
@@ -225,16 +217,10 @@ function WorkspaceLayout() {
             ))}
         </nav>
         <div className="sidebar-bottom">
-          <div className="storefront-note">
-            <span className="note-icon">
-              <ShoppingBag size={21} />
-            </span>
-            <strong>Your shop, everywhere.</strong>
-            <p>One inventory. Every channel.</p>
-            <Link to="/shop">
-              Visit storefront <ArrowUpRight size={16} />
-            </Link>
-          </div>
+          <span className="role-label">{user?.role === "admin" ? "Administrator" : "Staff"}</span>
+          <Link to="/shop" className="catalog-link">
+            <Store size={17} /> Product catalog <ArrowUpRight size={15} />
+          </Link>
           <div className="version">
             GoShop v1.0 <span>Final project</span>
           </div>
@@ -252,7 +238,7 @@ function WorkspaceLayout() {
             >
               {mobile ? <X /> : <Menu />}
             </button>
-            <span>Workspace</span>
+            <span>GoShop</span>
             <span className="slash">/</span>
             <strong>{current}</strong>
           </div>
@@ -267,7 +253,7 @@ function WorkspaceLayout() {
               <Search size={16} />
               <input
                 aria-label="Search products"
-                placeholder="Search anything…"
+                placeholder="Search products…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -288,6 +274,11 @@ function WorkspaceLayout() {
                   .slice(0, 2)}
               </span>
               <ChevronDown size={14} />
+            </button>
+            <button type="button" className="topbar-signout icon-button"
+              onClick={signOut} disabled={signingOut} aria-busy={signingOut}
+              aria-label={signingOut ? "Signing out…" : "Sign out"} title="Sign out">
+              <LogOut size={20} />
             </button>
             {account && (
               <div className="account-popover">
@@ -361,54 +352,15 @@ function LoginPage() {
   }
   return (
     <div className="auth-page">
-      <section className="auth-story">
-        <Link to="/shop">
-          <Brand />
-        </Link>
-        <div className="auth-story-main">
-          <span className="auth-symbol">
-            <ShoppingBag size={76} strokeWidth={1} />
-          </span>
-          <h1>
-            Your store.
-            <br />
-            All together.
-          </h1>
-          <p>
-            From the first sale to the last item on the shelf. A little less
-            juggling, a lot more GoShop.
-          </p>
-          <div className="auth-ledger">
-            <span>
-              <Store size={18} />
-              In store
-            </span>
-            <span className="ledger-connector" />
-            <span>
-              <ShoppingBag size={18} />
-              Online
-            </span>
-            <span className="ledger-connector" />
-            <span>
-              <Package size={18} />
-              One inventory
-            </span>
-          </div>
-        </div>
-        <span className="auth-footnote">
-          Built for the everyday business of retail.
-        </span>
-      </section>
       <section className="auth-form-section">
-        <Link className="auth-back" to="/shop">
-          Explore the store <ArrowUpRight size={16} />
-        </Link>
         <div className="auth-form-wrap">
-          <h2>{register ? "Make yourself at home." : "Welcome back."}</h2>
+          <Link to="/" className="auth-brand" aria-label="GoShop home"><Brand /></Link>
+          <span className="auth-caption">POINT OF SALE & MANAGEMENT</span>
+          <h1>{register ? "Create your account" : "Welcome to GoShop"}</h1>
           <p>
             {register
               ? "Create your GoShop customer account."
-              : "Your shop is ready when you are."}
+              : "Sign in to manage your store or continue shopping."}
           </p>
           <form onSubmit={submit}>
             {register && (
@@ -504,7 +456,7 @@ function Home() {
   if (!ready) return <Loading />;
   return (
     <Navigate
-      to={user && user.role !== "customer" ? "/dashboard" : "/shop"}
+      to={!user ? "/login" : user.role === "customer" ? "/shop" : "/dashboard"}
       replace
     />
   );

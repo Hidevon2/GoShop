@@ -196,59 +196,13 @@ export function ShopPage() {
   }
   return (
     <ShopShell>
-      <section className="shop-hero">
-        <div className="shop-hero-copy">
-          <h1>
-            Little things.
-            <br />
-            Better days.
-          </h1>
-          <p>
-            Thoughtful finds for your space, your routine, and wherever the day
-            takes you.
-          </p>
-          <a className="btn shop-primary" href="#collection">
-            Find your everyday
-            <ArrowRight size={18} />
-          </a>
-          <div className="hero-fineprint">
-            <span className="mini-dot" />A demo collection, made for exploring.
-          </div>
-        </div>
-        <div className="shop-hero-image">
-          <img
-            src="/products/hero.jpg"
-            alt="A bright, thoughtfully arranged home interior"
-          />
-          <div className="hero-image-caption">
-            <span>Make room for the everyday.</span>
-            <ArrowUpRight size={23} />
-          </div>
-        </div>
-        <span className="hero-side-note">GOOD FINDS. GOOD DAYS.</span>
-      </section>
-      <div className="shop-benefits">
-        <span>
-          <Package size={19} />A little of everything you love
-        </span>
-        <span>
-          <Truck size={19} />
-          {config.freeShippingCents > 0
-            ? `Free delivery from ${money(config.freeShippingCents)}`
-            : "Free delivery on every order"}
-        </span>
-        <span>
-          <ShieldCheck size={19} />
-          Pay with cash on delivery
-        </span>
-      </div>
       <section className="collection" id="collection">
         <div className="collection-heading">
           <div>
-            <h2>Find your next favorite.</h2>
-            <p>Simple essentials. A few happy discoveries.</p>
+            <h1>Product catalog</h1>
+            <p>Browse products, check availability, and add items to your bag.</p>
           </div>
-          <span>{filtered.length} good finds</span>
+          <span>{filtered.length} products</span>
         </div>
         <div className="collection-toolbar">
           <div className="category-tabs">
@@ -256,7 +210,7 @@ export function ShopPage() {
               className={category === "all" ? "active" : ""}
               onClick={() => setParams({})}
             >
-              All finds
+              All products
             </button>
             {categories?.map((c) => (
               <button
@@ -275,7 +229,7 @@ export function ShopPage() {
                 aria-label="Search collection"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Find something good…"
+                placeholder="Search products…"
               />
             </label>
             <select
@@ -344,26 +298,6 @@ export function ShopPage() {
             ))}
           </div>
         )}
-      </section>
-      <section className="shop-closing">
-        <ShoppingBag size={32} strokeWidth={1.3} />
-        <h2>
-          A shop that keeps
-          <br />
-          everything together.
-        </h2>
-        <p>
-          Browse online. Sell in store. GoShop keeps every product,
-          <br />
-          order and stock count connected behind the scenes.
-        </p>
-        <Link
-          to={user && user.role !== "customer" ? "/dashboard" : "/login"}
-          className="text-link"
-        >
-          Explore the workspace
-          <ArrowUpRight size={17} />
-        </Link>
       </section>
       {detail && (
         <div

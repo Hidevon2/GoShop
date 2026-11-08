@@ -236,8 +236,8 @@ function SalesChart({ data }: { data: Dashboard }) {
           >
             <defs>
               <linearGradient id="onlineArea" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#9d8bcc" stopOpacity={0.18} />
-                <stop offset="100%" stopColor="#9d8bcc" stopOpacity={0} />
+                <stop offset="0%" stopColor="#1689c9" stopOpacity={0.18} />
+                <stop offset="100%" stopColor="#1689c9" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid
@@ -280,7 +280,7 @@ function SalesChart({ data }: { data: Dashboard }) {
               <Area
                 type="monotone"
                 dataKey="Online"
-                stroke="#8770bd"
+                stroke="#116eaa"
                 strokeWidth={2.5}
                 fill="url(#onlineArea)"
                 activeDot={{ r: 4 }}
@@ -290,7 +290,7 @@ function SalesChart({ data }: { data: Dashboard }) {
               <Area
                 type="monotone"
                 dataKey="In-store"
-                stroke="#b7c69b"
+                stroke="#15966b"
                 strokeWidth={2.5}
                 fill="transparent"
                 strokeDasharray="5 4"
@@ -316,12 +316,14 @@ export function DashboardPage() {
   if (!data) return <Loading />;
   return (
     <>
+      <div className="dashboard-welcome">
+      <span className="dashboard-eyebrow">GOSHOP DASHBOARD</span>
       <PageHeading
-        title="Your shop, at a glance."
-        description={`Welcome back, ${user?.name.split(" ")[0]}. Here’s what’s happening with your business.`}
+        title="A clear view of your store."
+        description={`Welcome, ${user?.name.split(" ")[0]}. Here is how your business is doing today.`}
       >
         <Link className="btn secondary" to="/shop">
-          View storefront
+          Product catalog
           <ArrowUpRight size={16} />
         </Link>
         <Link className="btn primary" to="/pos">
@@ -329,6 +331,7 @@ export function DashboardPage() {
           New sale
         </Link>
       </PageHeading>
+      </div>
       <div className="section-line">
         <div className="section-tabs">
           <span className="active">Business overview</span>
@@ -351,11 +354,7 @@ export function DashboardPage() {
               <ArrowUpRight size={21} />
             </Link>
           </div>
-          <h2>
-            A little stock
-            <br />
-            check-in.
-          </h2>
+          <h2>Stock alerts</h2>
           <p>
             <strong>{low.length} products</strong> are running low.
             <br />
@@ -401,7 +400,7 @@ export function DashboardPage() {
           <div className="panel-heading">
             <div>
               <h2>Top products</h2>
-              <p>Your most-loved picks by sales.</p>
+              <p>Best-selling products by sales.</p>
             </div>
             <Link
               className="icon-button"
