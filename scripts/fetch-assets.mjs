@@ -14,8 +14,8 @@ const images = {
   tee: "1521572163474-6864f9cf17ab",
   hero: "1600210492486-724fe5c67fb0",
 };
-await mkdir("frontend/public/products", { recursive: true });
-await mkdir("frontend/public/fonts", { recursive: true });
+await mkdir("GOSHOP-FRONTEND/public/products", { recursive: true });
+await mkdir("GOSHOP-FRONTEND/public/fonts", { recursive: true });
 const results = await Promise.allSettled(
   Object.entries(images).map(async ([name, id]) => {
     const url = `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${name === "hero" ? 1200 : 540}&q=85`;
@@ -26,7 +26,7 @@ const results = await Promise.allSettled(
     )
       throw new Error(`${name}: ${response.status}`);
     await writeFile(
-      `frontend/public/products/${name}.jpg`,
+      `GOSHOP-FRONTEND/public/products/${name}.jpg`,
       new Uint8Array(await response.arrayBuffer()),
     );
     return name;
@@ -43,7 +43,7 @@ const font = await fetch(
 );
 if (!font.ok) throw new Error("Font download failed");
 await writeFile(
-  "frontend/public/fonts/manrope.ttf",
+  "GOSHOP-FRONTEND/public/fonts/manrope.ttf",
   new Uint8Array(await font.arrayBuffer()),
 );
 await writeFile(

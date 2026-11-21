@@ -78,7 +78,7 @@ npm run build
 
 Tests use isolated in-memory PostgreSQL, never the configured Neon database. They cover authorization, CSRF origin checks, competing checkouts, retry safety, cancellation, fulfillment, CSV validation, exports and report reconciliation. See `docs/VALIDATION.md` for the latest observed results.
 
-`npm run build` checks TypeScript under `frontend/src` and creates the frontend in the root `dist/` folder. To serve the built frontend and API together:
+`npm run build` checks TypeScript under `GOSHOP-FRONTEND/src` and creates the frontend in the root `dist/` folder. To serve the built frontend and API together:
 
 ```powershell
 npm run build
@@ -107,13 +107,11 @@ Production hardening still needed for a real store: payment collection and refun
 ## Repository layout
 
 ```text
-frontend/src/        React application and responsive styles
-frontend/public/     Product photos, fonts and sample CSV
-frontend/            Vite configuration and HTML entry point
-backend/api/         API setup and serverless entry
-backend/server/      API routes, domain logic, PostgreSQL adapter and schema
-api/                 Thin Vercel deployment bridge to backend/api/
-tests/               HTTP integration and transactional correctness tests
+GOSHOP-FRONTEND/       React application, assets, Vite config and HTML entry
+GOSHOP-BACKEND/api/    API setup and serverless entry
+GOSHOP-BACKEND/server/ API routes, domain logic, database and schema
+GOSHOP-BACKEND/tests/  HTTP integration and persistence tests
+api/                   Thin Vercel deployment bridge to GOSHOP-BACKEND/api/
 docs/                Requirements, architecture, API and demo guide
 scripts/             Bootstrap, documentation and asset helpers
 ```

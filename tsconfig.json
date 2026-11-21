@@ -12,5 +12,5 @@
     "resolveJsonModule": true,
     "esModuleInterop": true
   },
-  "include": ["frontend/src"]
+  "include": ["GOSHOP-FRONTEND/src"]
 }

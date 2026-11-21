@@ -4,14 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently -k -n api,web -c green,magenta \"node --watch --watch-path=backend/server backend/server/index.js\" \"vite --config frontend/vite.config.ts --host 127.0.0.1\"",
-    "build": "tsc --noEmit && vite build --config frontend/vite.config.ts",
-    "format": "prettier --write frontend/src backend/server tests scripts frontend/vite.config.ts frontend/index.html package.json tsconfig.json",
-    "start": "node backend/server/index.js",
-    "db:migrate": "node backend/server/migrate.js",
-    "db:seed": "node backend/server/seed-cli.js",
-    "db:admin": "node backend/server/create-admin.js",
-    "test": "node --test --test-concurrency=1 tests/*.test.js",
+    "dev": "concurrently -k -n api,web -c green,magenta \"node --watch --watch-path=GOSHOP-BACKEND/server GOSHOP-BACKEND/server/index.js\" \"vite --config GOSHOP-FRONTEND/vite.config.ts --host 127.0.0.1\"",
+    "build": "tsc --noEmit && vite build --config GOSHOP-FRONTEND/vite.config.ts",
+    "format": "prettier --write GOSHOP-FRONTEND/src GOSHOP-BACKEND/server GOSHOP-BACKEND/tests scripts GOSHOP-FRONTEND/vite.config.ts GOSHOP-FRONTEND/index.html package.json tsconfig.json",
+    "start": "node GOSHOP-BACKEND/server/index.js",
+    "db:migrate": "node GOSHOP-BACKEND/server/migrate.js",
+    "db:seed": "node GOSHOP-BACKEND/server/seed-cli.js",
+    "db:admin": "node GOSHOP-BACKEND/server/create-admin.js",
+    "test": "node --test --test-concurrency=1 GOSHOP-BACKEND/tests/*.test.js",
     "check": "npm run test && npm run build"
   },
   "dependencies": {

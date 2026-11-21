@@ -2,9 +2,9 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import bcrypt from "bcryptjs";
 import { randomUUID } from "node:crypto";
-import { createDatabase, one } from "../backend/server/db.js";
-import { migrate } from "../backend/server/migrate.js";
-import { createApp } from "../backend/server/app.js";
+import { createDatabase, one } from "../server/db.js";
+import { migrate } from "../server/migrate.js";
+import { createApp } from "../server/app.js";
 
 let db, server, base, admin, staff, customer;
 async function request(path, { method = "GET", body, cookie, origin } = {}) {

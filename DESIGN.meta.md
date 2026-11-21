@@ -2,7 +2,7 @@
 
 This companion stores extension details that the canonical DESIGN.md YAML cannot express. It is intentionally at `DESIGN.meta.md` under the delegated write boundary; `.impeccable/design.json` was not created. The JSON block below uses the documenter's schemaVersion 2 extension shape. Frontmatter primitives remain owned by DESIGN.md. No synthetic tonal ramps were generated: the observed lilac shades are distinct component fills, not an established scale.
 
-Evidence: `PRODUCT.md`, the direction contract in `frontend/index.html`, the earlier `frontend/src/styles.css`, and representative frontend source files. Extraction date: 2026-10-29. Direction: retail receipt, candidate 4, seed db1250f0. This is historical metadata; the current color system is in `frontend/src/dashboard-theme.css`. Previous source-review and verification notes describe the pre-refresh implementation and do not certify the current build or WCAG compliance.
+Evidence: `PRODUCT.md`, the direction contract in `GOSHOP-FRONTEND/index.html`, the earlier `GOSHOP-FRONTEND/src/styles.css`, and representative frontend source files. Extraction date: 2026-10-29. Direction: retail receipt, candidate 4, seed db1250f0. This is historical metadata; the current color system is in `GOSHOP-FRONTEND/src/dashboard-theme.css`. Previous source-review and verification notes describe the pre-refresh implementation and do not certify the current build or WCAG compliance.
 
 ```json
 {

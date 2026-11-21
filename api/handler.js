@@ -1,1 +1,1 @@
-export { default } from "../backend/api/handler.js";
+export { default } from "../GOSHOP-BACKEND/api/handler.js";

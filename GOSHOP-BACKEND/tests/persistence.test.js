@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { resolve } from "node:path";
 import { rm } from "node:fs/promises";
-import { createDatabase, one } from "../backend/server/db.js";
+import { createDatabase, one } from "../server/db.js";
 
 test("filesystem PostgreSQL preserves committed records after closing and reopening", async () => {
   const root = resolve(".data/persistence-tests"),
