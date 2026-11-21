@@ -6,7 +6,7 @@ Live classroom demo: **[goshop-two.vercel.app](https://goshop-two.vercel.app)**.
 
 ## Start locally
 
-GoShop opens at sign-in. After authentication, administrators and staff enter the dashboard, while customers enter the product catalog. The workspace uses a blue and white theme with separate metric cards and a summary banner. The catalog opens directly at the products; the promotional landing sections have been removed. Existing POS, inventory, orders, reports, cart, and checkout features remain available.
+GoShop opens at the public storefront. Customers can browse the catalog and sign in to save a bag or place an order. Staff and administrators sign in to the connected workspace for POS, inventory, fulfillment and reporting. The API applies product search, category filters and sorting consistently across the catalog.
 
 Requires Node.js 22.12+ and npm. From this directory:
 

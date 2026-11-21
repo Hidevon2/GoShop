@@ -352,6 +352,31 @@ function LoginPage() {
   }
   return (
     <div className="auth-page">
+      <aside className="auth-showcase">
+        <Link to="/shop" className="auth-showcase-brand">
+          <Brand />
+        </Link>
+        <span className="auth-showcase-kicker">A LITTLE SHOP, WELL CONNECTED</span>
+        <h2>
+          Good things
+          <br />
+          move <em>everyone</em>
+          <br />
+          forward.
+        </h2>
+        <p>
+          One thoughtful place for the products you love, the people who make
+          them available, and the work that keeps it all moving.
+        </p>
+        <div className="auth-showcase-art">
+          <img src="/products/hero.jpg" alt="A selection of products from GoShop" />
+          <span>CURATED FOR EVERYDAY</span>
+        </div>
+        <div className="auth-showcase-foot">
+          <span>SHOP · STOCK · SALES</span>
+          <span>01 / 03</span>
+        </div>
+      </aside>
       <section className="auth-form-section">
         <div className="auth-form-wrap">
           <Link to="/" className="auth-brand" aria-label="GoShop home"><Brand /></Link>
@@ -456,7 +481,7 @@ function Home() {
   if (!ready) return <Loading />;
   return (
     <Navigate
-      to={!user ? "/login" : user.role === "customer" ? "/shop" : "/dashboard"}
+      to={!user ? "/shop" : user.role === "customer" ? "/shop" : "/dashboard"}
       replace
     />
   );
