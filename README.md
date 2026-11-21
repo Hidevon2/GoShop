@@ -78,7 +78,7 @@ npm run build
 
 Tests use isolated in-memory PostgreSQL, never the configured Neon database. They cover authorization, CSRF origin checks, competing checkouts, retry safety, cancellation, fulfillment, CSV validation, exports and report reconciliation. See `docs/VALIDATION.md` for the latest observed results.
 
-`npm run build` checks TypeScript and creates the frontend in `dist/`. To serve the built frontend and API together:
+`npm run build` checks TypeScript under `frontend/src` and creates the frontend in the root `dist/` folder. To serve the built frontend and API together:
 
 ```powershell
 npm run build
@@ -107,11 +107,12 @@ Production hardening still needed for a real store: payment collection and refun
 ## Repository layout
 
 ```text
-src/                 React application and responsive styles
-server/              Express API, domain logic, PostgreSQL adapter and schema
+frontend/src/        React application and responsive styles
+frontend/public/     Product photos, fonts and sample CSV
+frontend/            Vite configuration and HTML entry point
+backend/server/      Express API, domain logic, PostgreSQL adapter and schema
+api/                 Vercel serverless adapter for the backend
 tests/               HTTP integration and transactional correctness tests
-public/products/     Local demonstration product photography
-public/samples/      Example product CSV
 docs/                Requirements, architecture, API and demo guide
 scripts/             Bootstrap, documentation and asset helpers
 ```

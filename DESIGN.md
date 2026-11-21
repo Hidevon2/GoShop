@@ -149,7 +149,7 @@ components:
 
 GoShop uses paper-white surfaces, dark ink, lilac chapter tabs and ruled transaction rows to make a connected retail business readable. Compact Manrope typography supports dense operations; restrained violet actions provide the next step. The same family opens into a photographic storefront with larger headlines and more breathing room.
 
-This is a descriptive extraction of the implemented source, grounded in the retail receipt direction in `index.html` (candidate 4; seed `db1250f0`). The metaphor above names that observed direction; it is not a separately approved creative workshop result. No incumbent identity was supplied. Source review passed after six findings were resolved; browser transport was unavailable, so no screenshot, approved comp or rendered visual pass supports this document. The parent build reports 19 passing tests and a passing production build. These facts do not constitute a WCAG certification.
+This is a dated design extraction of the earlier source, grounded in the retail receipt direction in `frontend/index.html` (candidate 4; seed `db1250f0`). It records the palette and source at the time of extraction; the current interface has since moved to the green and warm-paper system in `frontend/src/dashboard-theme.css`. The historical review notes below do not describe the current visual implementation or certify WCAG compliance.
 
 **Key Characteristics:**
 

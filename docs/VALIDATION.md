@@ -42,7 +42,7 @@ The owner created the GoShop Neon project in Singapore and saved its pooled Post
 - The running API returned `{ "status": "ok", "database": "neon-postgres" }` from `/api/health`.
 - Public product reads, concealed product costs, anonymous dashboard rejection, administrator sign-in, dashboard reads and logout passed against the running API.
 - The frontend entry returned HTTP 200, and its `/api/health` proxy confirmed the same live Neon adapter.
-- Restricted the development backend watcher to `server/` after unrestricted dependency watching repeatedly restarted the process on this Windows environment. The updated `npm run dev` started the API and Vite successfully.
+- Restricted the development backend watcher to `backend/server/` after unrestricted dependency watching repeatedly restarted the process on this Windows environment. The updated `npm run dev` started the API and Vite successfully.
 
 The local `.data/goshop` store remains separate and was not transferred or erased. The cloud records are demonstration data. This initial connection check ran locally; the later public deployment is recorded below.
 
