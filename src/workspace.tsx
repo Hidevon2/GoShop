@@ -236,8 +236,8 @@ function SalesChart({ data }: { data: Dashboard }) {
           >
             <defs>
               <linearGradient id="onlineArea" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#1689c9" stopOpacity={0.18} />
-                <stop offset="100%" stopColor="#1689c9" stopOpacity={0} />
+                <stop offset="0%" stopColor="#41835a" stopOpacity={0.18} />
+                <stop offset="100%" stopColor="#41835a" stopOpacity={0} />
               </linearGradient>
             </defs>
             <CartesianGrid
@@ -280,7 +280,7 @@ function SalesChart({ data }: { data: Dashboard }) {
               <Area
                 type="monotone"
                 dataKey="Online"
-                stroke="#116eaa"
+                stroke="#41835a"
                 strokeWidth={2.5}
                 fill="url(#onlineArea)"
                 activeDot={{ r: 4 }}
@@ -290,7 +290,7 @@ function SalesChart({ data }: { data: Dashboard }) {
               <Area
                 type="monotone"
                 dataKey="In-store"
-                stroke="#15966b"
+                stroke="#e8815c"
                 strokeWidth={2.5}
                 fill="transparent"
                 strokeDasharray="5 4"

@@ -1,4 +1,4 @@
-import { useState, type ReactNode, type FormEvent } from "react";
+import { useEffect, useState, type ReactNode, type FormEvent } from "react";
 import {
   Link,
   useNavigate,
@@ -69,10 +69,8 @@ function ShopShell({ children }: { children: ReactNode }) {
           <Brand />
         </Link>
         <nav aria-label="Store navigation">
-          <Link to="/shop">Shop all</Link>
-          <Link to="/shop?category=home-living">Home & living</Link>
-          <Link to="/shop?category=lifestyle">Lifestyle</Link>
-          <Link to="/shop?category=accessories">Accessories</Link>
+          <Link to="/shop#collection">Shop all</Link>
+          <a href="/shop#benefits">Our promise</a>
         </nav>
         <div className="shop-account">
           {user ? (
@@ -148,10 +146,22 @@ export function ShopPage() {
   const [params, setParams] = useSearchParams(),
     category = params.get("category") || "all",
     [search, setSearch] = useState(""),
+    [searchInput, setSearchInput] = useState(""),
     [sort, setSort] = useState("featured"),
     [adding, setAdding] = useState<string | null>(null),
     [detail, setDetail] = useState<Product | null>(null);
-  const { data: products, error } = useData<Product[]>("/products"),
+  useEffect(() => {
+    const timer = window.setTimeout(() => setSearch(searchInput), 250);
+    return () => window.clearTimeout(timer);
+  }, [searchInput]);
+  const catalogQuery = new URLSearchParams();
+  if (category !== "all") catalogQuery.set("category", category);
+  if (search.trim()) catalogQuery.set("q", search.trim());
+  if (sort !== "featured") catalogQuery.set("sort", sort);
+  const catalogQueryString = catalogQuery.toString();
+  const { data: products, error } = useData<Product[]>(
+      `/products${catalogQueryString ? `?${catalogQueryString}` : ""}`,
+    ),
     { data: categories } =
       useData<{ id: string; name: string }[]>("/categories"),
     { user } = useAuth(),
@@ -159,23 +169,7 @@ export function ShopPage() {
     toast = useToast(),
     config = useConfig(),
     { data: cart } = useData<CartItem[]>(user ? "/cart" : null);
-  const filtered = (
-    products?.filter(
-      (p) =>
-        (category === "all" || p.category_id === category) &&
-        `${p.name} ${p.description}`
-          .toLowerCase()
-          .includes(search.toLowerCase()),
-    ) || []
-  ).sort((a, b) =>
-    sort === "low"
-      ? a.price_cents - b.price_cents
-      : sort === "high"
-        ? b.price_cents - a.price_cents
-        : sort === "name"
-          ? a.name.localeCompare(b.name)
-          : 0,
-  );
+  const filtered = products || [];
   async function add(product: Product) {
     if (!user) {
       toast("Sign in to save products to your bag.");
@@ -196,11 +190,62 @@ export function ShopPage() {
   }
   return (
     <ShopShell>
+      <section className="store-hero">
+        <div className="store-hero-copy">
+          <span className="store-kicker">
+            <i /> THE EVERYDAY EDIT
+          </span>
+          <h1>
+            Small joys.
+            <br />
+            <em>Every single day.</em>
+          </h1>
+          <p>
+            Useful things, thoughtful details, and a few good surprises for
+            wherever life takes you.
+          </p>
+          <a className="store-hero-cta" href="#collection">
+            Find your next favorite <ArrowRight size={17} />
+          </a>
+          <div className="store-hero-note">
+            <span>01</span> A little shop for the things that make a day.
+          </div>
+        </div>
+        <div className="store-hero-visual">
+          <img
+            src="/products/hero.jpg"
+            alt="A curated selection of everyday home and lifestyle goods"
+          />
+          <div className="store-hero-stamp">
+            <span>
+              GOOD
+              <br />
+              THINGS
+            </span>
+            <ArrowUpRight size={18} />
+          </div>
+          <div className="store-hero-caption">
+            <span>MADE FOR YOUR EVERYDAY</span>
+            <strong>Little finds, big feel-good.</strong>
+          </div>
+        </div>
+      </section>
+      <div className="store-benefits" id="benefits">
+        <span>
+          <Package size={17} /> Carefully picked
+        </span>
+        <span>
+          <Truck size={17} /> Easy local delivery
+        </span>
+        <span>
+          <ShieldCheck size={17} /> Secure checkout
+        </span>
+      </div>
       <section className="collection" id="collection">
         <div className="collection-heading">
           <div>
             <h1>Product catalog</h1>
-            <p>Browse products, check availability, and add items to your bag.</p>
+            <p>Good design, practical details, and your next everyday favorite.</p>
           </div>
           <span>{filtered.length} products</span>
         </div>
@@ -227,8 +272,8 @@ export function ShopPage() {
               <Search size={16} />
               <input
                 aria-label="Search collection"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
                 placeholder="Search products…"
               />
             </label>

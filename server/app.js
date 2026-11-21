@@ -215,10 +215,31 @@ export function createApp(db) {
     const columns = isStaff
       ? "p.*"
       : "p.id,p.sku,p.name,p.description,p.category_id,p.price_cents,p.stock,p.reorder_level,p.image_url,p.color,p.active,p.updated_at";
+    const where = [];
+    const values = [];
+    if (!(isStaff && req.query.archived === "true"))
+      where.push("p.active=TRUE");
+    if (typeof req.query.q === "string" && req.query.q.trim()) {
+      const query = req.query.q.trim().slice(0, 100).replace(/[\\%_]/g, "\\$&");
+      values.push(`%${query}%`);
+      where.push(`(p.name ILIKE $${values.length} ESCAPE '\\' OR p.sku ILIKE $${values.length} ESCAPE '\\' OR p.description ILIKE $${values.length} ESCAPE '\\')`);
+    }
+    if (typeof req.query.category === "string" && req.query.category) {
+      values.push(req.query.category.slice(0, 100));
+      where.push(`p.category_id=$${values.length}`);
+    }
+    const ordering = {
+      featured: "p.created_at ASC,p.sku ASC",
+      low: "p.price_cents ASC,p.sku ASC",
+      high: "p.price_cents DESC,p.sku ASC",
+      name: "p.name ASC,p.sku ASC",
+    };
+    const orderBy = ordering[req.query.sort] || ordering.featured;
     res.json(
       (
         await db.query(
-          `SELECT ${columns}, c.name AS category FROM products p JOIN categories c ON c.id=p.category_id ${isStaff && req.query.archived === "true" ? "" : "WHERE p.active=TRUE"} ORDER BY p.created_at,p.sku`,
+          `SELECT ${columns}, c.name AS category FROM products p JOIN categories c ON c.id=p.category_id ${where.length ? `WHERE ${where.join(" AND ")}` : ""} ORDER BY ${orderBy}`,
+          values,
         )
       ).rows,
     );
