@@ -110,8 +110,9 @@ Production hardening still needed for a real store: payment collection and refun
 frontend/src/        React application and responsive styles
 frontend/public/     Product photos, fonts and sample CSV
 frontend/            Vite configuration and HTML entry point
-backend/server/      Express API, domain logic, PostgreSQL adapter and schema
-api/                 Vercel serverless adapter for the backend
+backend/api/         API setup and serverless entry
+backend/server/      API routes, domain logic, PostgreSQL adapter and schema
+api/                 Thin Vercel deployment bridge to backend/api/
 tests/               HTTP integration and transactional correctness tests
 docs/                Requirements, architecture, API and demo guide
 scripts/             Bootstrap, documentation and asset helpers

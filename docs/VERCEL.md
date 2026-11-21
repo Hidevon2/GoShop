@@ -10,7 +10,7 @@ Production URL: **https://goshop-two.vercel.app**. Deployed and checked on 30 Oc
 - Framework: Vite. Root directory: project root.
 - Build command: `npm run build`. Output directory: `dist`.
 - Select a supported Node.js version that meets the package requirement.
-- Frontend source, assets, and Vite configuration live in `frontend/`; the build writes to root `dist/`. The root `api/handler.js` is Vercel's serverless entry and delegates to `backend/server/`. The checked-in configuration routes `/api/*` to that adapter, preserves static assets, and returns the React entry for frontend routes. The API region is Singapore (`sin1`).
+- Frontend source, assets, and Vite configuration live in `frontend/`; the build writes to root `dist/`. API setup and implementation live in `backend/api/` and `backend/server/`. The root `api/handler.js` is a thin Vercel deployment bridge into the backend. The checked-in configuration routes `/api/*` to that bridge, preserves static assets, and returns the React entry for frontend routes. The API region is Singapore (`sin1`).
 
 ## Private environment settings
 
