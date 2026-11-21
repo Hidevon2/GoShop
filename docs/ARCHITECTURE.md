@@ -34,7 +34,7 @@ erDiagram
   USERS ||--o{ STOCK_MOVEMENTS : records
 ```
 
-The physical schema is in `server/schema.sql`; the SRS contains field definitions and constraints.
+The physical schema is in `backend/server/schema.sql`; the SRS contains field definitions and constraints.
 
 ## Checkout transaction
 

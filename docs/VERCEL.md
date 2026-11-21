@@ -8,9 +8,9 @@ Production URL: **https://goshop-two.vercel.app**. Deployed and checked on 30 Oc
 
 - Import `Hidevon2/GoShop` from GitHub, or link the directory with Vercel CLI.
 - Framework: Vite. Root directory: project root.
-- Build command: `npm run build`. Output directory: `dist`.
+- Build command: `npm run build`. Output directory: `frontend/dist`.
 - Select a supported Node.js version that meets the package requirement.
-- The checked-in configuration routes `/api/*` to `api/handler.js`, preserves static assets, and returns the React entry for frontend routes. The API region is Singapore (`sin1`).
+- The checked-in configuration routes `/api/*` through the root `api/handler.js` adapter to the implementation in `backend/api/handler.js`, serves assets from `frontend/dist`, and returns the React entry for frontend routes. The API region is Singapore (`sin1`).
 
 ## Private environment settings
 

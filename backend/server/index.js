@@ -12,9 +12,11 @@ await migrate(db);
 if (process.env.SEED_DEMO === "true" && process.env.NODE_ENV !== "production")
   await seed(db);
 const app = createApp(db);
-if (existsSync(resolve("dist/index.html"))) {
-  app.use(express.static(resolve("dist"), { redirect: false }));
-  app.get("/{*path}", (req, res) => res.sendFile(resolve("dist/index.html")));
+if (existsSync(resolve("frontend/dist/index.html"))) {
+  app.use(express.static(resolve("frontend/dist"), { redirect: false }));
+  app.get("/{*path}", (req, res) =>
+    res.sendFile(resolve("frontend/dist/index.html")),
+  );
 }
 const port = Number(process.env.PORT || 3001);
 const server = app.listen(

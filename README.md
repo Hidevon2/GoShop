@@ -16,7 +16,7 @@ if (!(Test-Path .env)) { Copy-Item .env.example .env }
 npm run dev
 ```
 
-Open [GoShop](http://localhost:5173). A persistent local PostgreSQL database is created in `.data/goshop`. No database installation is needed for local development. The API runs at port 3001 and Vite at 5173. Leave both running through `npm run dev`.
+Open [GoShop](http://localhost:5173). A persistent local PostgreSQL database is created in `.data/goshop`. No database installation is needed for local development. The backend API runs at port 3001 and the frontend dev server at 5173. Leave both running through `npm run dev`.
 
 The first development run seeds **synthetic demonstration data** when `SEED_DEMO=true`. Existing data is preserved. These accounts all use `GoShopDemo!2026`:
 
@@ -78,7 +78,7 @@ npm run build
 
 Tests use isolated in-memory PostgreSQL, never the configured Neon database. They cover authorization, CSRF origin checks, competing checkouts, retry safety, cancellation, fulfillment, CSV validation, exports and report reconciliation. See `docs/VALIDATION.md` for the latest observed results.
 
-`npm run build` checks TypeScript and creates the frontend in `dist/`. To serve the built frontend and API together:
+`npm run build` checks TypeScript and creates the frontend in `frontend/dist/`. To serve the built frontend and API together:
 
 ```powershell
 npm run build
@@ -107,13 +107,11 @@ Production hardening still needed for a real store: payment collection and refun
 ## Repository layout
 
 ```text
-src/                 React application and responsive styles
-server/              Express API, domain logic, PostgreSQL adapter and schema
-tests/               HTTP integration and transactional correctness tests
-public/products/     Local demonstration product photography
-public/samples/      Example product CSV
+frontend/            React application, Vite config and public assets
+backend/             Express API, domain logic, database schema and tests
+api/                 Small Vercel entry point forwarding to backend/api
+scripts/             Project documentation helper
 docs/                Requirements, architecture, API and demo guide
-scripts/             Bootstrap, documentation and asset helpers
 ```
 
 Money is stored as integer centavos. Completed POS cash sales and non-cancelled online orders appear in booked sales reports; COD payment collection is not tracked. All stock changes and order writes run through the shared backend database.

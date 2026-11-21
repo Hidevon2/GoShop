@@ -4,14 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently -k -n api,web -c green,magenta \"node --watch --watch-path=server server/index.js\" \"vite --host 127.0.0.1\"",
-    "build": "tsc --noEmit && vite build",
-    "format": "prettier --write src server tests scripts vite.config.ts index.html package.json tsconfig.json",
-    "start": "node server/index.js",
-    "db:migrate": "node server/migrate.js",
-    "db:seed": "node server/seed-cli.js",
-    "db:admin": "node server/create-admin.js",
-    "test": "node --test --test-concurrency=1 tests/*.test.js",
+    "dev": "concurrently -k -n api,web -c green,magenta \"node --watch --watch-path=backend/server backend/server/index.js\" \"vite --config frontend/vite.config.ts --host 127.0.0.1\"",
+    "build": "tsc --project frontend/tsconfig.json && vite build --config frontend/vite.config.ts",
+    "format": "prettier --write frontend/src frontend/fetch-assets.mjs frontend/vite.config.ts frontend/index.html frontend/tsconfig.json backend/server backend/api backend/tests scripts package.json",
+    "start": "node backend/server/index.js",
+    "db:migrate": "node backend/server/migrate.js",
+    "db:seed": "node backend/server/seed-cli.js",
+    "db:admin": "node backend/server/create-admin.js",
+    "test": "node --test --test-concurrency=1 backend/tests/*.test.js",
     "check": "npm run test && npm run build"
   },
   "dependencies": {
